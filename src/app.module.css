@@ -59,12 +59,17 @@ a {
 .dropdownMenu {
   position: absolute;
   width: 20rem;
+  transform-origin: left top;
   left: 0;
   top: var(--nav-size);
+  background-color: white;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.19);
+  padding-left: 1rem;
+  border-radius: 0.5rem;
 }
 
 .dropdownMenu li {
-  color: whitesmoke;
+  color: rgb(38, 38, 39);
   font-size: 1.125rem;
   padding-block: 0.5rem;
   border-radius: 0.25rem;
