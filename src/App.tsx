@@ -10,6 +10,14 @@ function App() {
   );
 }
 
+const departments = [
+  "Computer",
+  "Electrical",
+  "Civil",
+  "Electronics",
+  "Architecture",
+];
+
 function Ul() {
   const [open, setOpen] = useState(false);
 
@@ -17,7 +25,9 @@ function Ul() {
     <ul className={classes.navbarNav}>
       <li className={classes.navItem}>Home</li>
 
-      <DropDown setOpen={setOpen} open={open} />
+      <DropDown option={departments} title="Departments" />
+      <DropDown option={departments} title="Fuck" />
+      <DropDown option={departments} title="Sex" />
 
       <li className={classes.navItem}>Contact Us</li>
       <li className={classes.navItem}>About Us</li>
@@ -27,47 +37,45 @@ function Ul() {
 
 export default App;
 
-function DropDown({
-  setOpen,
-  open,
-}: {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  open: boolean;
-}) {
+function DropDown({ option, title }: { option: string[]; title: string }) {
+  const [open, setOpen] = useState(false);
   return (
     <motion.li
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
       className={classes.navItem}
     >
-      <button className={classes.dropdownToggler}>Department</button>
+      <button className={classes.dropdownToggler}>{title}</button>
       <AnimatePresence>
         {open && (
           <motion.ul
-            initial={{
-              scale: 0.8,
-              opacity: 0,
-              y: -10,
+            variants={{
+              rest: {
+                scale: 0.8,
+                opacity: 0,
+                y: -10,
+              },
+              animate: {
+                scale: 1,
+                opacity: 1,
+              },
             }}
-            animate={{
-              scale: 1,
-              opacity: 1,
-            }}
-            exit={{
-              scale: 0.8,
-              opacity: 0,
-            }}
+            initial="rest"
+            animate="animate"
+            exit="rest"
             transition={{
               duration: 0.15,
               ease: "easeOut",
             }}
             className={classes.dropdownMenu}
           >
-            <li onClick={() => setOpen(false)}>Computer Technology</li>
-            <li>Electrical Technology</li>
-            <li>Civil Technology</li>
-            <li>Electronics Technology</li>
-            <li>Architecture Technology</li>
+            {option.map((el) => {
+              return (
+                <li key={el} onClick={() => setOpen(false)}>
+                  {el}
+                </li>
+              );
+            })}
           </motion.ul>
         )}
       </AnimatePresence>
